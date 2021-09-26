@@ -1,0 +1,12 @@
+ocorre(mano x=0;x<11;x++)           	| X | S6 | fN
+
+meteoloco(x<5){}			| X | S5 | wN
+
+sepa(mano x<5){}//sepa(){} e sepa(<){}	| X | S4 | cN
+
+mano brown = 5;                     	| X | S2 | aN
+
+obaguieesse("olar");   			| X | S3 | pN
+
+vaivenafita(brown);   			| X | S1 | scN
+
