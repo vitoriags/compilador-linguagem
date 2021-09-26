@@ -1,13 +1,14 @@
 # compilador
 from funcoes import *
 
-listareservadas = gerarLista('palavrasreservadas.cha', 'r')
-listasimbolos = gerarLista('simbolos.cha', 'r')
-listatipos = gerarLista('tipos.cha', 'r')
+listareservadas = gerarlista('palavrasreservadas.cha', 'r')
+listasimbolos = gerarlista('simbolos.cha', 'r')
+listatipos = gerarlista('tipos.cha', 'r')
 
 entrada = input().replace(" ", "")
 lista = entrada[0]
 
+# sepa(mano x < 9){}
 # ocorre(        ; x<5;  x++)
 # ocorre(     x=0; x<5;  x++)
 # ocorre(mano x=x; x<x;  x++)
@@ -16,21 +17,30 @@ lista = entrada[0]
 # ocorre(mano x>0; x<=5; x+=2)
 # ocorre(mano x>0; x<=5; x+=x)
 
-
 flag = False
 indice = 0
 listavariaveis = []
 listalexico = []
 
+reservadas = []
+simbolos = []
+numericos = []
+tipos = []
+inp = []
+
 while indice < len(entrada):
-    print(f'{lista}, indice: {indice}')
+    # print(f'{lista}, indice: {indice}')
     flag = False
     if lista in listareservadas and lista not in listatipos:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = palavra reservada]')
+        reservadas.append(lista)
+        inp.append(lista)
         flag = True
 
     elif lista in listasimbolos:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = símbolo]')
+        simbolos.append(lista)
+        inp.append(lista)
         flag = True
 
     elif lista in listavariaveis:
@@ -39,14 +49,20 @@ while indice < len(entrada):
 
     elif lista.isnumeric():
         listalexico.append(f'Símbolo [frag = {lista}, tipo = numérico]')
+        numericos.append(lista)
+        inp.append(lista)
         flag = True
 
     elif lista in listatipos:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = tipo]')
+        tipos.append(lista)
+        inp.append(lista)
         flag = True
 
     elif entrada[indice + 1] in listasimbolos:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
+        listavariaveis.append(lista)
+        inp.append(lista)
         flag = True
 
     else:
@@ -64,3 +80,16 @@ while indice < len(entrada):
 print()
 stringlexico = ', '.join(map(str, listalexico))
 print(f'Léxico: {stringlexico}')
+
+print('')
+
+print(f'reservadas: {reservadas}')
+print(f'símbolos: {simbolos}')
+print(f'numericos: {numericos}')
+print(f'tipos: {tipos}')
+print(f'variaveis: {listavariaveis}')
+print(f'entrada: {inp}')
+
+print('')
+
+sepa(inp, reservadas, simbolos, numericos, tipos, listavariaveis)
