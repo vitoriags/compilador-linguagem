@@ -61,19 +61,26 @@ while indice < len(entrada):
         flag = True
 
     elif entrada[indice + 1] in listasimbolos:
-        if entrada[12] == '#' and entrada[indice + 1] == '>':
-            listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
-            listavariaveis.append(lista)
-            inp.append(lista)
+        if 'obaguieesse' in reservadas:
+            if entrada[12] == '#' and entrada[indice + 1] == '>':
+                listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
+                listavariaveis.append(lista)
+                inp.append(lista)
 
-        elif entrada[indice + 1] == '"' or entrada[indice + 1] == "'" or entrada[indice + 1] == '<':
-            listatextos.append(lista)
-            inp.append(lista)
+            elif entrada[indice + 1] == '"' or entrada[indice + 1] == "'" or entrada[indice + 1] == '<':
+                listatextos.append(lista)
+                inp.append(lista)
+
+            else:
+                listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
+                listavariaveis.append(lista)
+                inp.append(lista)
 
         else:
             listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
             listavariaveis.append(lista)
             inp.append(lista)
+
         flag = True
 
     else:
