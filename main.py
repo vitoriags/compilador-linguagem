@@ -20,6 +20,7 @@ lista = entrada[0]
 flag = False
 indice = 0
 listavariaveis = []
+listatextos = []
 listalexico = []
 
 reservadas = []
@@ -60,9 +61,19 @@ while indice < len(entrada):
         flag = True
 
     elif entrada[indice + 1] in listasimbolos:
-        listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
-        listavariaveis.append(lista)
-        inp.append(lista)
+        if entrada[12] == '#' and entrada[indice + 1] == '>':
+            listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
+            listavariaveis.append(lista)
+            inp.append(lista)
+
+        elif entrada[indice + 1] == '"' or entrada[indice + 1] == "'" or entrada[indice + 1] == '<':
+            listatextos.append(lista)
+            inp.append(lista)
+
+        else:
+            listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
+            listavariaveis.append(lista)
+            inp.append(lista)
         flag = True
 
     else:
@@ -88,8 +99,9 @@ print(f'símbolos: {simbolos}')
 print(f'numericos: {numericos}')
 print(f'tipos: {tipos}')
 print(f'variaveis: {listavariaveis}')
+print(f'texto: {listatextos}')
 print(f'entrada: {inp}')
 
 print('')
 
-sepa(inp, reservadas, simbolos, numericos, tipos, listavariaveis)
+
