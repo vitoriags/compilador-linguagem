@@ -117,7 +117,7 @@ while indice < len(entrada):
 print()
 stringlexico = ', '.join(map(str, listalexico))
 print(f'Léxico: {stringlexico}')
-print('')
+print()
 
 # print(f'reservadas: {reservadas}')
 # print(f'símbolos: {simbolos}')
@@ -126,7 +126,7 @@ print('')
 # print(f'variaveis: {listavariaveis}')
 # print(f'texto: {listatextos}')
 print(f'entrada: {inp}')
-print('')
+print()
 
 if inp[0] == 'sepa':
     sepa(inp)
