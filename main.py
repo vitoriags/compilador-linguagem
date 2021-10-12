@@ -8,7 +8,6 @@ listatipos = gerarlista('tipos.cha', 'r')
 entrada = input().replace(" ", "")
 lista = entrada[0]
 
-# sepa(mano x < 9){}
 # ocorre(        ; x<5;  x++)
 # ocorre(     x=0; x<5;  x++)
 # ocorre(mano x=x; x<x;  x++)
@@ -34,7 +33,7 @@ lista = entrada[0]
 # obaguieesse("oiiii");
 # obaguieesse(#"<x> oi");
 # obaguieesse(#"oi <x>");
-# obaguieesse(#"shha");
+# obaguieesse(#"oioivitoria");
 
 flag = False
 indice = 0
@@ -54,13 +53,13 @@ while indice < len(entrada):
     if lista in listareservadas and lista not in listatipos:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = palavra reservada]')
         reservadas.append(lista)
-        inp.append('reservada')
+        inp.append(lista)
         flag = True
 
     elif lista in listasimbolos:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = símbolo]')
         simbolos.append(lista)
-        inp.append('símbolo')
+        inp.append(lista)
         flag = True
 
     elif lista in listavariaveis:
@@ -87,6 +86,7 @@ while indice < len(entrada):
                 inp.append('variável')
 
             elif entrada[indice + 1] == '"' or entrada[indice + 1] == "'" or entrada[indice + 1] == '<':
+                listalexico.append(f'Símbolo [frag = {lista}, tipo = texto]')
                 listatextos.append(lista)
                 inp.append('texto')
 
@@ -117,7 +117,6 @@ while indice < len(entrada):
 print()
 stringlexico = ', '.join(map(str, listalexico))
 print(f'Léxico: {stringlexico}')
-
 print('')
 
 # print(f'reservadas: {reservadas}')
@@ -127,8 +126,9 @@ print('')
 # print(f'variaveis: {listavariaveis}')
 # print(f'texto: {listatextos}')
 print(f'entrada: {inp}')
-
 print('')
 
-sepa(inp)
-obaguieesse(inp)
+if inp[0] == 'sepa':
+    sepa(inp)
+else:
+    obaguieesse(inp)

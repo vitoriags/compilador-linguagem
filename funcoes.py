@@ -39,19 +39,19 @@ def process_string(machine, strings):
 
 def sepa(entrada):
 
-    alphabet = ['reservada', 'tipo', 'símbolo', 'variável', 'número']
+    alphabet = ['sepa', 'tipo', 'variável', 'número', '(', ')', '{', '}', '<', '>', '*', '+', '-', '=']
 
-    trans_func = {'q0': {'reservada': 'c0'},
-                  'c0': {'símbolo': 'c1'},
+    trans_func = {'q0': {'sepa': 'c0'},
+                  'c0': {'(': 'c1'},
                   'c1': {'tipo': 'c2', 'variável': 'c3', 'número': 'c3'},
                   'c2': {'variável': 'c3'},
-                  'c3': {'símbolo': 'c4'},
-                  'c4': {'número': 'c6', 'símbolo': 'c5', 'variável': 'c7'},
+                  'c3': {'<': 'c4', '>': 'c4', '=': 'c4'},
+                  'c4': {'número': 'c6', '=': 'c5', 'variável': 'c7'},
                   'c5': {'número': 'c6', 'variável': 'c7'},
-                  'c6': {'símbolo': 'c8'},
-                  'c7': {'símbolo': 'c8'},
-                  'c8': {'símbolo': 'c9'},
-                  'c9': {'símbolo': 'q0'}}
+                  'c6': {')': 'c8'},
+                  'c7': {')': 'c8'},
+                  'c8': {'{': 'c9'},
+                  'c9': {'}': 'q0'}}
 
     start_state = 'q0'
     final_states = (['q0'])
@@ -69,22 +69,22 @@ def sepa(entrada):
 
 def obaguieesse(entrada):
 
-    alphabet = ['reservada', 'tipo', 'símbolo', 'variável', 'número', 'texto']
+    alphabet = ['obaguieesse', 'variável', 'número', 'texto', '(', ')', '<', '>', '#', ';', '"']
 
-    trans_func = {'q0': {'reservada': 'p0'},
-                  'p0': {'símbolo': 'p1'},
-                  'p1': {'símbolo': 'p2', 'variável': 'p4', 'símbolo': 'p6'},
+    trans_func = {'q0': {'obaguieesse': 'p0'},
+                  'p0': {'(': 'p1'},
+                  'p1': {'"': 'p2', 'variável': 'p4', '#': 'p6'},
                   'p2': {'texto': 'p3'},
-                  'p3': {'símbolo': 'c4'},
-                  'p4': {'símbolo': 'p5'},
-                  'p5': {'símbolo': 'q0'},
-                  'p6': {'símbolo': 'p7'},
-                  'p7': {'texto': 'p8', 'símbolo': 'p9'},
-                  'p8': {'símbolo': 'p9', 'símbolo': 'p12'},
+                  'p3': {'"': 'p4'},
+                  'p4': {')': 'p5'},
+                  'p5': {';': 'q0'},
+                  'p6': {'"': 'p7'},
+                  'p7': {'texto': 'p8', '<': 'p9'},
+                  'p8': {'<': 'p9', '"': 'p12'},
                   'p9': {'variável': 'p10'},
-                  'p10': {'símbolo': 'p11'},
-                  'p11': {'texto': 'p8', 'símbolo': 'p9', 'símbolo': 'p12'},
-                  'p12': {'símbolo': 'p5'}}
+                  'p10': {'>': 'p11'},
+                  'p11': {'texto': 'p8', '<': 'p9', '"': 'p12'},
+                  'p12': {')': 'p5'}}
 
     start_state = 'q0'
     final_states = (['q0'])
