@@ -114,7 +114,6 @@ while indice < len(entrada):
 
     indice += 1
 
-print()
 stringlexico = ', '.join(map(str, listalexico))
 print(f'Léxico: {stringlexico}')
 print()
