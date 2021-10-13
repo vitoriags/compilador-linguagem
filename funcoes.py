@@ -14,21 +14,19 @@ def gerarlista(arquivo, tipo):
     return listaseparada
 
 
-def validate_string(machine, strings):
-    for string in strings:
-        if string in machine[ALPHABET]:
-            return True
-        else:
-            return False
+def validate_string(machine, string):
+    if string in machine[ALPHABET]:
+        return True
+    else:
+        return False
 
 
 def process_string(machine, strings):
-    if not validate_string(machine, strings):
-        return None
-
     state = machine[START_STATE]
 
     for string in strings:
+        if not validate_string(machine, string):
+            return None
         try:
             state = machine[TRANSITION_FUNCTION][state][string]
         except:
@@ -60,7 +58,7 @@ def sepa(entrada):
 
     result = process_string(machine, strings)
 
-    if result is not None:
+    if result is not False and result is not None:
         for string in strings:
             print(f'{result}: {string}')
     else:
