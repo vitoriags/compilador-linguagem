@@ -34,7 +34,6 @@ def process_string(machine, strings):
 
     return state in machine[FINAL_STATES]
 
-
 def sepa(entrada):
 
     alphabet = ['sepa', 'tipo', 'variável', 'número', '(', ')', '{', '}', '<', '>', '*', '+', '-', '=']
