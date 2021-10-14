@@ -149,3 +149,4 @@ def ocorre(entrada):
             print(f'{result}: {string}')
     else:
         print("Entrada não válida")
+

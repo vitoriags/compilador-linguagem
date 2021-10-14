@@ -8,13 +8,13 @@ listatipos = gerarlista('tipos.cha', 'r')
 entrada = input().replace(" ", "")
 lista = entrada[0]
 
-# ocorre(        ; x<5;  x++)
-# ocorre(     x=0; x<5;  x++)
-# ocorre(mano x=x; x<x;  x++)
-# ocorre(mano x>0; x<5;  ++x)
-# ocorre(mano x=0; x<=5; x++)
-# ocorre(mano x>0; x<=5; x+=2)
-# ocorre(mano x>0; x<=5; x+=x)
+# ocorre(        ; x<5;  x++){}
+# ocorre(     x=0; x<5;  x++){}
+# ocorre(mano x=x; x<x;  x++){}
+# ocorre(mano x=0; x<5;  ++x){}
+# ocorre(mano x=0; x<=5; x++){}
+# ocorre(mano x=0; x<=5; x+=2){}
+# ocorre(mano x=0; x<=5; x+=x){}
 
 # sepa(mano x <= 9){}
 # sepa(mano x <= y){}
@@ -64,6 +64,7 @@ while indice < len(entrada):
 
     elif lista in listavariaveis:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
+        inp.append('variável')
         flag = True
 
     elif lista.isnumeric():
