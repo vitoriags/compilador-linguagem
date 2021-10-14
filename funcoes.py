@@ -22,9 +22,7 @@ def validate_string(machine, string):
 
 
 def process_string(machine, strings):
-
     state = machine[START_STATE]
-
     for string in strings:
         if not validate_string(machine, string):
             return None
@@ -32,12 +30,10 @@ def process_string(machine, strings):
             state = machine[TRANSITION_FUNCTION][state][string]
         except:
             return None
-
     return state in machine[FINAL_STATES]
 
 
 def sepa(entrada):
-
     alphabet = ['sepa', 'tipo', 'variável', 'número', '(', ')', '{', '}', '<', '>', '*', '+', '-', '=']
 
     trans_func = {'q0': {'sepa': 'c0'},
@@ -55,19 +51,17 @@ def sepa(entrada):
     start_state = 'q0'
     final_states = (['q0'])
     machine = (alphabet, trans_func, start_state, final_states)
-    strings = entrada
 
-    result = process_string(machine, strings)
+    result = process_string(machine, entrada)
 
     if result is not None and result is not False:
-        for string in strings:
+        for string in entrada:
             print(f'{result}: {string}')
     else:
-        print("\nERROR")
+        print("Entrada não Válida")
 
 
 def obaguieesse(entrada):
-
     alphabet = ['obaguieesse', 'variável', 'número', 'texto', '(', ')', '<', '>', '#', ';', '"']
 
     trans_func = {'q0': {'obaguieesse': 'p0'},
@@ -88,12 +82,11 @@ def obaguieesse(entrada):
     start_state = 'q0'
     final_states = (['q0'])
     machine = (alphabet, trans_func, start_state, final_states)
-    strings = entrada
 
-    result = process_string(machine, strings)
+    result = process_string(machine, entrada)
 
     if result is not None and result is not False:
-        for string in strings:
+        for string in entrada:
             print(f'{result}: {string}')
     else:
-        print("\nERROR")
+        print("Entrada não Válida")

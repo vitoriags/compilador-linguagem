@@ -119,16 +119,18 @@ stringlexico = ', '.join(map(str, listalexico))
 print(f'Léxico: {stringlexico}')
 print('')
 
-# print(f'reservadas: {reservadas}')
-# print(f'símbolos: {simbolos}')
-# print(f'numericos: {numericos}')
-# print(f'tipos: {tipos}')
-# print(f'variaveis: {listavariaveis}')
-# print(f'texto: {listatextos}')
 print(f'entrada: {inp}')
 print('')
 
 if inp[0] == 'sepa':
     sepa(inp)
-else:
+elif inp[0] == 'obaguieesse':
     obaguieesse(inp)
+elif inp[0] == 'ocorre':
+    ocorre(inp)
+elif inp[0] == 'vaivenafita':
+    vaivenafita(inp)
+elif inp[0] == 'meteoloco':
+    meteoloco(inp)
+elif inp[0] in listatipos:
+    atribuicao(inp)
