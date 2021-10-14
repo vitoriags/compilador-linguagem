@@ -11,35 +11,29 @@ def manipularArquivo(arquivo, tipo):
 def gerarLista(arquivo, tipo):
     lista = manipularArquivo(arquivo, tipo)
     listaseparada = lista.split(" ")
-    # print (listaseparada, '\n')
     return listaseparada
 
 
-def validate_string(string, machine):
+def validate_string(machine, string):
     if string in machine[ALPHABET]:
         return True
-    elif string in machine[ALPHABET][2][0]:
-        return True
-    return False
+    else:
+        return False
 
 
 def process_string(machine, strings):
     state = machine[START_STATE]
-    for char in strings:
-        # print(char)
-        if not validate_string(char, machine):
+    for string in strings:
+        if not validate_string(machine, string):
             return None
-
         try:
-            state = machine[TRANSITION_FUNCTION][state][char]
+            state = machine[TRANSITION_FUNCTION][state][string]
         except:
             return None
-        # print(state)
-
     return state in machine[FINAL_STATES]
 
 
-def vaivenafita(inp):
+def vaivenafita(entrada):
     alphabet = ['vaivenafita', '(', 'variável', ')', ';']
     trans_func = {'q0': {'vaivenafita': 'sc1'},
                   'sc1': {'(': 'sc2'},
@@ -51,14 +45,15 @@ def vaivenafita(inp):
     final_states = {'q0'}
     machine = (alphabet, trans_func, start_state, final_states)
 
-    result = process_string(machine, inp)
-    if result is not None:
-        print(f'Machine: {machine}')
+    result = process_string(machine, entrada)
+    if result is not None and result is not False:
+        for string in entrada:
+            print(f'{result}: {string}')
     else:
-        print('Fora de ordem')
+        print("Entrada não válida")
 
 
-def ocorre(inp):
+def ocorre(entrada):
     alphabet = ['ocorre', '(', 'tipo', 'variável', ';', '=', 'número', '<', '>', ')', '{', '}', '+']
     trans_func = {'q0': {'ocorre': 'f0'},
                   'f0': {'(': 'f1'},
@@ -89,8 +84,9 @@ def ocorre(inp):
     final_states = {'s6'}
     machine = (alphabet, trans_func, start_state, final_states)
 
-    result = process_string(machine, inp)
-    if result is not None:
-        print(f'Machine: {machine}')
+    result = process_string(machine, entrada)
+    if result is not None and result is not False:
+        for string in entrada:
+            print(f'{result}: {string}')
     else:
-        print('Fora de ordem')
+        print("Entrada não válida")
