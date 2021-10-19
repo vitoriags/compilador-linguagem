@@ -41,12 +41,9 @@ indice = 0
 listavariaveis = []
 listatextos = []
 listalexico = []
-
-reservadas = []
-simbolos = []
-numericos = []
-tipos = []
 inp = []
+
+traducao = []
 
 num = ''
 
@@ -54,18 +51,19 @@ while indice < len(entrada):
     flag = False
     if lista in listareservadas and lista not in listatipos:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = palavra reservada]')
-        reservadas.append(lista)
+        traducao.append(lista)
         inp.append(lista)
         flag = True
 
     elif lista in listasimbolos:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = símbolo]')
-        simbolos.append(lista)
+        traducao.append(lista)
         inp.append(lista)
         flag = True
 
     elif lista in listavariaveis:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
+        traducao.append(lista)
         inp.append('variável')
         flag = True
 
@@ -73,18 +71,17 @@ while indice < len(entrada):
         if entrada[indice + 1].isnumeric():
             num += lista + entrada[indice + 1]
             listalexico.append(f'Símbolo [frag = {num}, tipo = numérico]')
-            numericos.append(num)
 
         else:
             listalexico.append(f'Símbolo [frag = {lista}, tipo = numérico]')
-            numericos.append(lista)
+            traducao.append(lista)
             inp.append('número')
             num = ''
         flag = True
 
     elif lista in listatipos:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = tipo]')
-        tipos.append(lista)
+        traducao.append(lista)
         inp.append('tipo')
         flag = True
 
@@ -93,21 +90,24 @@ while indice < len(entrada):
             if entrada[12] == '#' and entrada[indice + 1] == '>':
                 listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
                 listavariaveis.append(lista)
+                traducao.append(lista)
                 inp.append('variável')
 
             elif entrada[indice + 1] == '"' or entrada[indice + 1] == "'" or entrada[indice + 1] == '<':
                 listalexico.append(f'Símbolo [frag = {lista}, tipo = texto]')
-                listatextos.append(lista)
+                traducao.append(lista)
                 inp.append('texto')
 
             else:
                 listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
                 listavariaveis.append(lista)
+                traducao.append(lista)
                 inp.append('variável')
 
         else:
             listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
             listavariaveis.append(lista)
+            traducao.append(lista)
             inp.append('variável')
 
         flag = True
@@ -131,6 +131,8 @@ print('')
 
 print(f'entrada: {inp}')
 print('')
+
+print(traducao)
 
 if inp[0] == 'sepa':
     sepa(inp)

@@ -60,8 +60,10 @@ def sepa(entrada):
     if result is not False and result is not None:
         for string in strings:
             print(f'{result}: {string}')
+        return True
     else:
         print("\nERROR")
+        return False
 
 
 def obaguieesse(entrada):
@@ -93,5 +95,7 @@ def obaguieesse(entrada):
     if result is not None:
         for string in strings:
             print(f'{result}: {string}')
+        return True
     else:
         print("\nERROR")
+        return False
