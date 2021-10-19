@@ -146,4 +146,3 @@ elif inp[0] == 'meteoloco':
     meteoloco(inp)
 elif inp[0] in listatipos:
     atribuicao(inp)
-
