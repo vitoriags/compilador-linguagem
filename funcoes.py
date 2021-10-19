@@ -99,4 +99,3 @@ def obaguieesse(entrada):
     else:
         print("\nERROR")
         return False
-
