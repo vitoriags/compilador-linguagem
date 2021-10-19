@@ -8,13 +8,13 @@ listatipos = gerarlista('tipos.cha', 'r')
 entrada = input().replace(" ", "")
 lista = entrada[0]
 
-# ocorre(        ; x<5;  x++)
-# ocorre(     x=0; x<5;  x++)
-# ocorre(mano x=x; x<x;  x++)
-# ocorre(mano x>0; x<5;  ++x)
-# ocorre(mano x=0; x<=5; x++)
-# ocorre(mano x>0; x<=5; x+=2)
-# ocorre(mano x>0; x<=5; x+=x)
+# ocorre(        ; x<5;  x++){}
+# ocorre(     x=0; x<5;  x++){}
+# ocorre(mano x=x; x<x;  x++){}
+# ocorre(mano x=0; x<5;  ++x){}
+# ocorre(mano x=0; x<=5; x++){}
+# ocorre(mano x=0; x<=5; x+=2){}
+# ocorre(mano x=0; x<=5; x+=x){}
 
 # sepa(mano x <= 9){}
 # sepa(mano x <= y){}
@@ -36,6 +36,7 @@ lista = entrada[0]
 # obaguieesse(#"oioivitoria");
 
 flag = False
+fnum = False
 indice = 0
 listavariaveis = []
 listatextos = []
@@ -47,8 +48,9 @@ numericos = []
 tipos = []
 inp = []
 
+num = ''
+
 while indice < len(entrada):
-    # print(f'{lista}, indice: {indice}')
     flag = False
     if lista in listareservadas and lista not in listatipos:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = palavra reservada]')
@@ -64,12 +66,20 @@ while indice < len(entrada):
 
     elif lista in listavariaveis:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
+        inp.append('variável')
         flag = True
 
     elif lista.isnumeric():
-        listalexico.append(f'Símbolo [frag = {lista}, tipo = numérico]')
-        numericos.append(lista)
-        inp.append('número')
+        if entrada[indice + 1].isnumeric():
+            num += lista + entrada[indice + 1]
+            listalexico.append(f'Símbolo [frag = {num}, tipo = numérico]')
+            numericos.append(num)
+
+        else:
+            listalexico.append(f'Símbolo [frag = {lista}, tipo = numérico]')
+            numericos.append(lista)
+            inp.append('número')
+            num = ''
         flag = True
 
     elif lista in listatipos:
@@ -114,20 +124,24 @@ while indice < len(entrada):
 
     indice += 1
 
+print()
 stringlexico = ', '.join(map(str, listalexico))
 print(f'Léxico: {stringlexico}')
-print()
+print('')
 
-# print(f'reservadas: {reservadas}')
-# print(f'símbolos: {simbolos}')
-# print(f'numericos: {numericos}')
-# print(f'tipos: {tipos}')
-# print(f'variaveis: {listavariaveis}')
-# print(f'texto: {listatextos}')
 print(f'entrada: {inp}')
-print()
+print('')
 
 if inp[0] == 'sepa':
     sepa(inp)
-else:
+elif inp[0] == 'obaguieesse':
     obaguieesse(inp)
+elif inp[0] == 'ocorre':
+    ocorre(inp)
+elif inp[0] == 'vaivenafita':
+    vaivenafita(inp)
+elif inp[0] == 'meteoloco':
+    meteoloco(inp)
+elif inp[0] in listatipos:
+    atribuicao(inp)
+
