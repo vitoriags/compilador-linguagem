@@ -8,14 +8,6 @@ listatipos = gerarlista('tipos.cha', 'r')
 entrada = input().replace(" ", "")
 lista = entrada[0]
 
-# ocorre(        ; x<5;  x++){}
-# ocorre(     x=0; x<5;  x++){}
-# ocorre(mano x=x; x<x;  x++){}
-# ocorre(mano x=0; x<5;  ++x){}
-# ocorre(mano x=0; x<=5; x++){}
-# ocorre(mano x=0; x<=5; x+=2){}
-# ocorre(mano x=0; x<=5; x+=x){}
-
 # sepa(mano x <= 9){}
 # sepa(mano x <= y){}
 # sepa(mano x < 9){}
@@ -36,33 +28,39 @@ lista = entrada[0]
 # obaguieesse(#"oioivitoria");
 
 flag = False
-fnum = False
 indice = 0
 listavariaveis = []
 listatextos = []
 listalexico = []
-inp = []
 
-traducao = []
+reservadas = []
+simbolos = []
+tipos = []
+numericos = []
 
 num = ''
+inp = []
+traducao = []
 
 while indice < len(entrada):
     flag = False
     if lista in listareservadas and lista not in listatipos:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = palavra reservada]')
+        reservadas.append(lista)
         traducao.append(lista)
         inp.append(lista)
         flag = True
 
     elif lista in listasimbolos:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = símbolo]')
+        simbolos.append(lista)
         traducao.append(lista)
         inp.append(lista)
         flag = True
 
     elif lista in listavariaveis:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
+        listavariaveis.append(lista)
         traducao.append(lista)
         inp.append('variável')
         flag = True
@@ -71,9 +69,11 @@ while indice < len(entrada):
         if entrada[indice + 1].isnumeric():
             num += lista + entrada[indice + 1]
             listalexico.append(f'Símbolo [frag = {num}, tipo = numérico]')
+            numericos.append(lista)
 
         else:
             listalexico.append(f'Símbolo [frag = {lista}, tipo = numérico]')
+            numericos.append(lista)
             traducao.append(lista)
             inp.append('número')
             num = ''
@@ -81,6 +81,7 @@ while indice < len(entrada):
 
     elif lista in listatipos:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = tipo]')
+        tipos.append(lista)
         traducao.append(lista)
         inp.append('tipo')
         flag = True
@@ -95,6 +96,7 @@ while indice < len(entrada):
 
             elif entrada[indice + 1] == '"' or entrada[indice + 1] == "'" or entrada[indice + 1] == '<':
                 listalexico.append(f'Símbolo [frag = {lista}, tipo = texto]')
+                listatextos.append(lista)
                 traducao.append(lista)
                 inp.append('texto')
 
@@ -132,7 +134,16 @@ print('')
 print(f'entrada: {inp}')
 print('')
 
-print(traducao)
+print(f'reservadas: {reservadas}')
+print(f'tipos: {tipos}')
+print(f'números: {numericos}')
+print(f'simbolos: {simbolos}')
+print(f'textos: {listatextos}')
+print(f'variáveis: {listavariaveis}')
+
+print('')
+print(f'para a tradução: {traducao}')
+print('')
 
 if inp[0] == 'sepa':
     sepa(inp)
