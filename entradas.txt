@@ -1,0 +1,28 @@
+# sepa(mano x <= 9){}
+# sepa(mano x <= y){}
+# sepa(mano x < 9){}
+# sepa(mano x < y){}
+# sepa(x < 9){}
+# sepa(x < y){}
+# sepa(x <= 9){}
+# sepa(x <= y){}
+# sepa(1 < 9){}
+# sepa(1 < y){}
+# sepa(1 <= 9){}
+# sepa(1 <= y){}
+
+# obaguieesse(x);
+# obaguieesse("oiiii");
+# obaguieesse(#"<x> oi");
+# obaguieesse(#"oi <x>");
+# obaguieesse(#"oioivitoria");
+
+# ocorre(        ; x<5;  x++)
+# ocorre(     x=0; x<5;  x++)
+# ocorre(mano x=x; x<x;  x++)
+# ocorre(mano x=0; x<5;  ++x)
+# ocorre(mano x=0; x<=5; x++)
+# ocorre(mano x=0; x<=5; x+=2)
+# ocorre(mano x=0; x<=5; x+=x)
+
+# vaivenafita(x);
