@@ -58,11 +58,9 @@ def sepa(entrada):
     result = process_string(machine, strings)
 
     if result is not False and result is not None:
-        for string in strings:
-            print(f'{result}: {string}')
         return True
     else:
-        print("\nERROR")
+        print("Entrada não Válida")
         return False
 
 
@@ -93,9 +91,7 @@ def obaguieesse(entrada):
     result = process_string(machine, strings)
 
     if result is not None:
-        for string in strings:
-            print(f'{result}: {string}')
         return True
     else:
-        print("\nERROR")
+        print("Entrada não Válida")
         return False

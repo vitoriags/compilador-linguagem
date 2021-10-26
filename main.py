@@ -4,17 +4,10 @@ from funcoes import *
 listareservadas = gerarlista('palavrasreservadas.cha', 'r')
 listasimbolos = gerarlista('simbolos.cha', 'r')
 listatipos = gerarlista('tipos.cha', 'r')
+dicionario = gerarlista('dicionario.cha', 'r')
 
 entrada = input().replace(" ", "")
 lista = entrada[0]
-
-# ocorre(        ; x<5;  x++){}
-# ocorre(     x=0; x<5;  x++){}
-# ocorre(mano x=x; x<x;  x++){}
-# ocorre(mano x=0; x<5;  ++x){}
-# ocorre(mano x=0; x<=5; x++){}
-# ocorre(mano x=0; x<=5; x+=2){}
-# ocorre(mano x=0; x<=5; x+=x){}
 
 # sepa(mano x <= 9){}
 # sepa(mano x <= y){}
@@ -35,35 +28,62 @@ lista = entrada[0]
 # obaguieesse(#"oi <x>");
 # obaguieesse(#"oioivitoria");
 
+# meteoloco(a > 5 ){}
+# meteoloco(a < 5 ){}
+# meteoloco(a == 5 ){}
+# meteoloco(a <= 5 ){}
+# meteoloco(a >= 5 ){}
+# meteoloco(a > b ){}
+# meteoloco(a < b ){}
+# meteoloco(a >= b ){}
+# meteoloco(a <= b ){}
+# meteoloco(a == b ){}
+
+# mano brown = 5;
+# mano brown = 10;
+# mano brown = 100;
+# mano brown = b;
+# mano brown = "aloalo";
+# mano brown = 'aloalo';
+
 flag = False
-fnum = False
 indice = 0
 listavariaveis = []
 listatextos = []
 listalexico = []
-inp = []
 
-traducao = []
+reservadas = []
+simbolos = []
+tipos = []
+numericos = []
 
 num = ''
+inp = []
+traducao = ''
 
 while indice < len(entrada):
     flag = False
     if lista in listareservadas and lista not in listatipos:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = palavra reservada]')
-        traducao.append(lista)
+        reservadas.append(lista)
+        traducao += dicionario[dicionario.index(lista) + 1]
         inp.append(lista)
         flag = True
 
     elif lista in listasimbolos:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = símbolo]')
-        traducao.append(lista)
+        simbolos.append(lista)
+        if lista == '#':
+            pass
+        else:
+            traducao += lista
         inp.append(lista)
         flag = True
 
     elif lista in listavariaveis:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
-        traducao.append(lista)
+        listavariaveis.append(lista)
+        traducao += lista + ' '
         inp.append('variável')
         flag = True
 
@@ -71,43 +91,47 @@ while indice < len(entrada):
         if entrada[indice + 1].isnumeric():
             num += lista + entrada[indice + 1]
             listalexico.append(f'Símbolo [frag = {num}, tipo = numérico]')
+            numericos.append(lista)
 
         else:
             listalexico.append(f'Símbolo [frag = {lista}, tipo = numérico]')
-            traducao.append(lista)
+            numericos.append(lista)
+            traducao += ' ' + lista
             inp.append('número')
             num = ''
         flag = True
 
     elif lista in listatipos:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = tipo]')
-        traducao.append(lista)
+        tipos.append(lista)
+        traducao += dicionario[dicionario.index(lista) + 1] + ' '
         inp.append('tipo')
         flag = True
 
     elif entrada[indice + 1] in listasimbolos:
-        if 'obaguieesse' in reservadas:
+        if 'obaguieesse' in reservadas or inp[0] == 'tipo':
             if entrada[12] == '#' and entrada[indice + 1] == '>':
                 listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
                 listavariaveis.append(lista)
-                traducao.append(lista)
+                traducao += lista + ' '
                 inp.append('variável')
 
             elif entrada[indice + 1] == '"' or entrada[indice + 1] == "'" or entrada[indice + 1] == '<':
                 listalexico.append(f'Símbolo [frag = {lista}, tipo = texto]')
-                traducao.append(lista)
+                listatextos.append(lista)
+                traducao += lista
                 inp.append('texto')
 
             else:
                 listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
                 listavariaveis.append(lista)
-                traducao.append(lista)
+                traducao += lista + ' '
                 inp.append('variável')
 
         else:
             listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
             listavariaveis.append(lista)
-            traducao.append(lista)
+            traducao += lista + ' '
             inp.append('variável')
 
         flag = True
@@ -116,7 +140,7 @@ while indice < len(entrada):
         if indice < len(entrada):
             lista = lista + entrada[indice + 1]
 
-    if flag == True:
+    if flag:
         if indice < len(entrada) - 1:
             lista = entrada[indice + 1]
         else:
@@ -132,18 +156,37 @@ print('')
 print(f'entrada: {inp}')
 print('')
 
-print(traducao)
+print(f'reservadas: {reservadas}')
+print(f'tipos: {tipos}')
+print(f'números: {numericos}')
+print(f'simbolos: {simbolos}')
+print(f'textos: {listatextos}')
+print(f'variáveis: {listavariaveis}')
+
+print('')
+print('')
 
 if inp[0] == 'sepa':
-    sepa(inp)
-elif inp[0] == 'obaguieesse':
-    obaguieesse(inp)
-elif inp[0] == 'ocorre':
-    ocorre(inp)
-elif inp[0] == 'vaivenafita':
-    vaivenafita(inp)
-elif inp[0] == 'meteoloco':
-    meteoloco(inp)
-elif inp[0] in listatipos:
-    atribuicao(inp)
+    if sepa(inp):
+        print(f'Tradução: {traducao}')
 
+elif inp[0] == 'obaguieesse':
+    if obaguieesse(inp):
+        if '#' in inp and '<' in inp and '"' in inp:
+            print('xxxxx')
+
+        elif len(listavariaveis) < 2:
+            print(f'Tradução: printf("%d", {listavariaveis[0]})')
+
+        else:
+            print(f'Tradução: {traducao}')
+
+
+# elif inp[0] == 'ocorre':
+#     ocorre(inp)
+# elif inp[0] == 'vaivenafita':
+#     vaivenafita(inp)
+# elif inp[0] == 'meteoloco':
+#     meteoloco(inp)
+# elif inp[0] in listatipos:
+#     atribuicao(inp)
