@@ -153,18 +153,16 @@ stringlexico = ', '.join(map(str, listalexico))
 print(f'Léxico: {stringlexico}')
 print('')
 
-print(f'entrada: {inp}')
-print('')
+# print(f'entrada: {inp}')
+# print('')
 
-print(f'reservadas: {reservadas}')
-print(f'tipos: {tipos}')
-print(f'números: {numericos}')
-print(f'simbolos: {simbolos}')
-print(f'textos: {listatextos}')
-print(f'variáveis: {listavariaveis}')
+# print(f'reservadas: {reservadas}')
+# print(f'tipos: {tipos}')
+# print(f'números: {numericos}')
+# print(f'simbolos: {simbolos}')
+# print(f'textos: {listatextos}')
+# print(f'variáveis: {listavariaveis}')
 
-print('')
-print('')
 
 if inp[0] == 'sepa':
     if sepa(inp):
@@ -173,10 +171,13 @@ if inp[0] == 'sepa':
 elif inp[0] == 'obaguieesse':
     if obaguieesse(inp):
         if '#' in inp and '<' in inp and '"' in inp:
-            print('xxxxx')
+            if inp[4] == '<':
+                print(f'Tradução: printf("%s {listatextos[0]}", {listavariaveis[0]});')
+            else:
+                print(f'Tradução: printf("{listatextos[0]} %s", {listavariaveis[0]});')
 
-        elif len(listavariaveis) < 2:
-            print(f'Tradução: printf("%d", {listavariaveis[0]})')
+        elif len(listavariaveis) == 1:
+            print(f'Tradução: printf("%s", {listavariaveis[0]})')
 
         else:
             print(f'Tradução: {traducao}')
