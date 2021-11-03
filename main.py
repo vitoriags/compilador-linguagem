@@ -183,11 +183,14 @@ elif inp[0] == 'obaguieesse':
             print(f'Tradução: {traducao}')
 
 
-# elif inp[0] == 'ocorre':
-#     ocorre(inp)
-# elif inp[0] == 'vaivenafita':
-#     vaivenafita(inp)
-# elif inp[0] == 'meteoloco':
-#     meteoloco(inp)
-# elif inp[0] in listatipos:
-#     atribuicao(inp)
+elif inp[0] == 'ocorre':
+    ocorre(inp)
+
+elif inp[0] == 'vaivenafita':
+    vaivenafita(inp)
+
+elif inp[0] == 'meteoloco':
+    meteoloco(inp)
+
+elif inp[0] in listatipos:
+    atribuicao(inp)
