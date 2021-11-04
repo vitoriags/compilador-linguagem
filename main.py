@@ -156,12 +156,12 @@ print('')
 print(f'entrada: {inp}')
 print('')
 
-# print(f'reservadas: {reservadas}')
-# print(f'tipos: {tipos}')
-# print(f'números: {numericos}')
-# print(f'simbolos: {simbolos}')
-# print(f'textos: {listatextos}')
-# print(f'variáveis: {listavariaveis}')
+print(f'reservadas: {reservadas}')
+print(f'tipos: {tipos}')
+print(f'números: {numericos}')
+print(f'simbolos: {simbolos}')
+print(f'textos: {listatextos}')
+print(f'variáveis: {listavariaveis}')
 
 trad = 'printf("'
 t = 0
@@ -192,14 +192,14 @@ elif inp[0] == 'obaguieesse':
             print(f'Tradução: printf("{listatextos[0]}");')
 
 
-# elif inp[0] == 'ocorre':
-#     ocorre(inp)
-#
-# elif inp[0] == 'vaivenafita':
-#     vaivenafita(inp)
-#
-# elif inp[0] == 'meteoloco':
-#     meteoloco(inp)
-#
-# elif inp[0] in listatipos:
-#     atribuicao(inp)
+elif inp[0] == 'ocorre':
+    ocorre(inp)
+
+elif inp[0] == 'vaivenafita':
+    vaivenafita(inp)
+
+elif inp[0] == 'meteoloco':
+    meteoloco(inp)
+
+elif inp[0] in listatipos:
+    atribuicao(inp)
