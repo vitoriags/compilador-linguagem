@@ -153,8 +153,8 @@ stringlexico = ', '.join(map(str, listalexico))
 print(f'Léxico: {stringlexico}')
 print('')
 
-# print(f'entrada: {inp}')
-# print('')
+print(f'entrada: {inp}')
+print('')
 
 # print(f'reservadas: {reservadas}')
 # print(f'tipos: {tipos}')
@@ -163,6 +163,10 @@ print('')
 # print(f'textos: {listatextos}')
 # print(f'variáveis: {listavariaveis}')
 
+trad = 'printf("'
+t = 0
+v = 0
+val = ', '.join(listavariaveis)
 
 if inp[0] == 'sepa':
     if sepa(inp):
@@ -170,27 +174,32 @@ if inp[0] == 'sepa':
 
 elif inp[0] == 'obaguieesse':
     if obaguieesse(inp):
-        if '#' in inp and '<' in inp and '"' in inp:
-            if inp[4] == '<':
-                print(f'Tradução: printf("%s {listatextos[0]}", {listavariaveis[0]});')
-            else:
-                print(f'Tradução: printf("{listatextos[0]} %s", {listavariaveis[0]});')
+        if '<' in inp and '"' in inp:
+            for x in inp:
+                if x == 'variável':
+                    trad += '%s '
+                elif x == 'texto':
+                    trad += f'{listatextos[t]} '
+                    t += 1
+
+            trad += f'", {val});'
+            print(f'Tradução: {trad}')
 
         elif len(listavariaveis) == 1:
             print(f'Tradução: printf("%s", {listavariaveis[0]})')
 
         else:
-            print(f'Tradução: {traducao}')
+            print(f'Tradução: printf("{listatextos[0]}");')
 
 
-elif inp[0] == 'ocorre':
-    ocorre(inp)
-
-elif inp[0] == 'vaivenafita':
-    vaivenafita(inp)
-
-elif inp[0] == 'meteoloco':
-    meteoloco(inp)
-
-elif inp[0] in listatipos:
-    atribuicao(inp)
+# elif inp[0] == 'ocorre':
+#     ocorre(inp)
+#
+# elif inp[0] == 'vaivenafita':
+#     vaivenafita(inp)
+#
+# elif inp[0] == 'meteoloco':
+#     meteoloco(inp)
+#
+# elif inp[0] in listatipos:
+#     atribuicao(inp)
