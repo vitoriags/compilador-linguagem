@@ -6,7 +6,9 @@ listasimbolos = gerarlista('simbolos.cha', 'r')
 listatipos = gerarlista('tipos.cha', 'r')
 dicionario = gerarlista('dicionario.cha', 'r')
 
-entrada = input().replace(" ", "")
+traducaointeira = open('entrada.txt', 'r')
+traducaointeira = traducaointeira.read()
+entrada = traducaointeira.replace(" ", "")
 lista = entrada[0]
 
 # sepa(mano x <= 9){}
@@ -26,7 +28,7 @@ lista = entrada[0]
 # obaguieesse("oiiii");
 # obaguieesse(#"<x> oi");
 # obaguieesse(#"oi <x>");
-# obaguieesse(#"oioivitoria");
+# obaguieesse(#"oioi");
 
 # meteoloco(a > 5 ){}
 # meteoloco(a < 5 ){}
@@ -66,24 +68,18 @@ while indice < len(entrada):
     if lista in listareservadas and lista not in listatipos:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = palavra reservada]')
         reservadas.append(lista)
-        traducao += dicionario[dicionario.index(lista) + 1]
         inp.append(lista)
         flag = True
 
     elif lista in listasimbolos:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = símbolo]')
         simbolos.append(lista)
-        if lista == '#':
-            pass
-        else:
-            traducao += lista
         inp.append(lista)
         flag = True
 
     elif lista in listavariaveis:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
         listavariaveis.append(lista)
-        traducao += lista + ' '
         inp.append('variável')
         flag = True
 
@@ -96,7 +92,6 @@ while indice < len(entrada):
         else:
             listalexico.append(f'Símbolo [frag = {lista}, tipo = numérico]')
             numericos.append(lista)
-            traducao += ' ' + lista
             inp.append('número')
             num = ''
         flag = True
@@ -104,7 +99,6 @@ while indice < len(entrada):
     elif lista in listatipos:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = tipo]')
         tipos.append(lista)
-        traducao += dicionario[dicionario.index(lista) + 1] + ' '
         inp.append('tipo')
         flag = True
 
@@ -113,25 +107,21 @@ while indice < len(entrada):
             if entrada[12] == '#' and entrada[indice + 1] == '>':
                 listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
                 listavariaveis.append(lista)
-                traducao += lista + ' '
                 inp.append('variável')
 
             elif entrada[indice + 1] == '"' or entrada[indice + 1] == "'" or entrada[indice + 1] == '<':
                 listalexico.append(f'Símbolo [frag = {lista}, tipo = texto]')
                 listatextos.append(lista)
-                traducao += lista
                 inp.append('texto')
 
             else:
                 listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
                 listavariaveis.append(lista)
-                traducao += lista + ' '
                 inp.append('variável')
 
         else:
             listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
             listavariaveis.append(lista)
-            traducao += lista + ' '
             inp.append('variável')
 
         flag = True
@@ -153,15 +143,15 @@ stringlexico = ', '.join(map(str, listalexico))
 print(f'Léxico: {stringlexico}')
 print('')
 
-print(f'entrada: {inp}')
-print('')
+# print(f'entrada: {inp}')
+# print('')
 
-print(f'reservadas: {reservadas}')
-print(f'tipos: {tipos}')
-print(f'números: {numericos}')
-print(f'simbolos: {simbolos}')
-print(f'textos: {listatextos}')
-print(f'variáveis: {listavariaveis}')
+# print(f'reservadas: {reservadas}')
+# print(f'tipos: {tipos}')
+# print(f'números: {numericos}')
+# print(f'simbolos: {simbolos}')
+# print(f'textos: {listatextos}')
+# print(f'variáveis: {listavariaveis}')
 
 trad = 'printf("'
 t = 0
@@ -170,7 +160,11 @@ val = ', '.join(listavariaveis)
 
 if inp[0] == 'sepa':
     if sepa(inp):
-        print(f'Tradução: {traducao}')
+        traducaointeira = traducaointeira.replace("sepa", "if")
+        for t in tipos:
+            if t in listatipos:
+                traducaointeira = traducaointeira.replace(f'{t}', f'{dicionario[dicionario.index(t) + 1]}')
+    print(f'Tradução: {traducaointeira}')
 
 elif inp[0] == 'obaguieesse':
     if obaguieesse(inp):
