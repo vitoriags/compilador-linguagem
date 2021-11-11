@@ -151,14 +151,16 @@ def ocorre(entrada):
         print("Entrada não Válida")
 
 def atribuicao(entrada):
-    alphabet = ['tipo', 'variável', '=', 'texto', 'número', ';']
+    alphabet = ['tipo', 'variável', '=', '"', "'", 'texto', 'número', ';']
 
     trans_func = {'q0': {'tipo': 'a1'},
                   'a1': {'variável': 'a2'},
                   'a2': {'=': 'a3'},
-                  'a3': {'variável': 'a4', 'texto': 'a4', 'número': 'a5'},
+                  'a3': {'variável': 'a4', 'número': 'a4', '"': 'a5', "'": 'a5'},
                   'a4': {';': 'S2'},
-                  'a5': {'número':'a5', ';': 'S2'}
+                  'a5': {'texto': 'a6'},
+                  'a6': {'"': 'a7', "'": 'a7'},
+                  'a7': {';': 'S2'},
                   }
 
     start_state = 'q0'
@@ -168,31 +170,33 @@ def atribuicao(entrada):
     result = process_string(machine, entrada)
 
     if result is not None and result is not False:
-        for string in entrada:
-            print(f'{result}: {string}')
+        return result
     else:
         print("Entrada não Válida")
+        return result
+
 
 def meteoloco(entrada):
-    alphabet = ['meteoloco', '(', 'tipo', 'variável', '<', '>', '>=', '<=', '==', 'número', ')', '{', '}']
+    alphabet = ['meteoloco', '(', 'tipo', 'variável', '<', '>', '=', 'número', ')', '{', '}']
     trans_func = {'q0': {'meteoloco': 'w0'},
                   'w0': {'(': 'w1'},
-                  'w1': {'tipo': 'w2', 'variável': 'w3'},
-                  'w2': {'variável': 'w3'},
-                  'w3': {'<': 'w4', '>': 'w4','=': 'w4',},
-                  'w4': {'número': 'w5', 'variável': 'w5'},
-                  'w5': {')': 'w6'},
-                  'w6': {'{': 'w7'},
-                  'w7': {'}': 'q0'},
+                  'w1': {'variável': 'w2'},
+                  'w2': {'<': 'w3', '>': 'w3','=': 'w3' },
+                  'w3': {'=': 'w4', 'número': 'w5','variável': 'w5'},
+                  'w4': {'variável': 'w6','número':'w6'},
+                  'w5': {')': 'w7'},
+                  'w6': {')': 'w7'},
+                  'w7': {'{': 'w8'},
+                  'w8': {'}': 'S5'},
                   }
     start_state = 'q0'
-    final_states = {'q0'}
+    final_states = {'S5'}
     machine = (alphabet, trans_func, start_state, final_states)
 
     result = process_string(machine,entrada)
 
     if result is not None and result is not False:
-        for string in entrada:
-            print(f'{result}: {string}')
+        return result
     else:
         print("Entrada não Válida")
+        return result
