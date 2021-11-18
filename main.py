@@ -1,4 +1,4 @@
-#compilador
+# compilador
 
 from funcoes import *
 
@@ -57,6 +57,8 @@ lista = entrada[0]
 
 flag = False
 indice = 0
+
+
 listavariaveis = []
 listatextos = []
 listalexico = []
@@ -73,45 +75,52 @@ traducao = ''
 while indice < len(entrada):
     flag = False
     if lista in listareservadas and lista not in listatipos:
-        reservadas.append(lista)
         listalexico.append(f'Símbolo [frag = {lista}, tipo = palavra reservada]')
-        flag = True
+        reservadas.append(lista)
         inp.append(lista)
-        traducao += dicionario[dicionario.index(lista)+1]
+        flag = True
 
     elif lista in listasimbolos:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = símbolo]')
         simbolos.append(lista)
         inp.append(lista)
-        traducao += lista + ' '
         flag = True
 
     elif lista in listavariaveis:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
+        listavariaveis.append(lista)
         inp.append('variável')
-        traducao += lista + ' '
         flag = True
 
     elif lista.isnumeric():
-        if entrada[indice + 1].isnumeric():
-            num += lista + entrada[indice + 1]
-            listalexico.append(f'Símbolo [frag = {num}, tipo = numérico]')
-            numericos.append(num)
+        cont = 0
+        for i in entrada:
+            if i.isnumeric():
+                num += i
+                cont += 1
 
-        else:
-            listalexico.append(f'Símbolo [frag = {lista}, tipo = numérico]')
-            numericos.append(lista)
-            inp.append('número')
-            traducao += lista + ' '
-            num = ''
+        listalexico.append(f'Símbolo [frag = {num}, tipo = numérico]')
+        numericos.append(num)
+        inp.append('número')
+        indice += cont - 1
         flag = True
+        # if entrada[indice + 1].isnumeric():
+        #     num += lista + entrada[indice + 1]
+        #     listalexico.append(f'Símbolo [frag = {num}, tipo = numérico]')
+        #     numericos.append(num)
+        #     indice += 1
+        # else:
+        #     listalexico.append(f'Símbolo [frag = {lista}, tipo = numérico]')
+        #     numericos.append(lista)
+        #     inp.append('número')
+        #     num = ''
+        #
+        # flag = True
 
     elif lista in listatipos:
         listalexico.append(f'Símbolo [frag = {lista}, tipo = tipo]')
         tipos.append(lista)
         inp.append('tipo')
-        print(f'lista: {lista}')
-        traducao += dicionario[dicionario.index(lista)+1] + ' '
         flag = True
 
     elif entrada[indice + 1] in listasimbolos:
@@ -120,24 +129,21 @@ while indice < len(entrada):
                 listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
                 listavariaveis.append(lista)
                 inp.append('variável')
-                traducao += lista + ' '
 
             elif entrada[indice + 1] == '"' or entrada[indice + 1] == "'" or entrada[indice + 1] == '<':
                 listalexico.append(f'Símbolo [frag = {lista}, tipo = texto]')
                 listatextos.append(lista)
                 inp.append('texto')
-                traducao += lista + ' '
 
             else:
                 listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
                 listavariaveis.append(lista)
                 inp.append('variável')
-                traducao += lista + ' '
+
         else:
             listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
             listavariaveis.append(lista)
             inp.append('variável')
-            traducao += lista + ' '
 
         flag = True
 
@@ -150,28 +156,24 @@ while indice < len(entrada):
             lista = entrada[indice + 1]
         else:
             pass
+
     indice += 1
-
-
 
 print()
 stringlexico = ', '.join(map(str, listalexico))
 print(f'Léxico: {stringlexico}')
 print('')
 
-print(f'entrada: {inp}')
-print('')
+# print(f'entrada: {inp}')
+# print('')
+#
+# print(f'reservadas: {reservadas}')
+# print(f'tipos: {tipos}')
+# print(f'números: {numericos}')
+# print(f'simbolos: {simbolos}')
+# print(f'textos: {listatextos}')
+# print(f'variáveis: {listavariaveis}')
 
-print(f'reservadas: {reservadas}')
-print(f'tipos: {tipos}')
-print(f'números: {numericos}')
-print(f'simbolos: {simbolos}')
-print(f'textos: {listatextos}')
-print(f'variáveis: {listavariaveis}')
-
-print('')
-# print(f'para a tradução: {traducao}')
-print('')
 
 if inp[0] == 'sepa':
     sepa(inp)
