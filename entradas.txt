@@ -1,0 +1,36 @@
+# sepa(mano x <= 9){}
+# sepa(mano x <= y){}
+# sepa(mano x < 9){}
+# sepa(mano x < y){}
+# sepa(x < 9){}
+# sepa(x < y){}
+# sepa(x <= 9){}
+# sepa(x <= y){}
+# sepa(1 < 9){}
+# sepa(1 < y){}
+# sepa(1 <= 9){}
+# sepa(1 <= y){}
+
+# obaguieesse(x);
+# obaguieesse("oiiii");
+# obaguieesse(#"<x> oi");
+# obaguieesse(#"oi <x>");
+# obaguieesse(#"oioi");
+
+# meteoloco(a > 5 ){}
+# meteoloco(a < 5 ){}
+# meteoloco(a == 5 ){}
+# meteoloco(a <= 5 ){}
+# meteoloco(a >= 5 ){}
+# meteoloco(a > b ){}
+# meteoloco(a < b ){}
+# meteoloco(a >= b ){}
+# meteoloco(a <= b ){}
+# meteoloco(a == b ){}
+
+# mano brown = 5;
+# mano brown = 10;
+# mano brown = 100;
+# mano brown = b;
+# mano brown = "aloalo";
+# mano brown = 'aloalo';

@@ -1,1 +1,1 @@
-sepa(mano x <= 9){}
+sepa(1 <= 9){}
