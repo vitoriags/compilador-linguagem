@@ -75,13 +75,14 @@ while aux < len(listaEntrada):
             flag = True
 
         elif lista.isnumeric():
-            if listaEntrada[aux][indice - 1].isnumeric() or listaEntrada[aux][indice + 1].isnumeric():
+            if listaEntrada[aux][indice + 1].isnumeric():
                 num += lista
-
             else:
                 listalexico.append(f'Símbolo [frag = {lista}, tipo = numérico]')
-                numericos.append(lista)
+                num += lista
+                numericos.append(num)
                 inp.append('número')
+                num = ''
 
             flag = True
 
@@ -145,6 +146,7 @@ while aux < len(listaEntrada):
 
     # Verificação Maquina de Estado
 
+
     if 'ocorre' in inp:
         if ocorre(inp):
             traducao = listaTraducao[aux].replace("ocorre", "for")
@@ -167,6 +169,37 @@ while aux < len(listaEntrada):
             else:
                 print('Error 489')
 
+    elif 'sepa' in inp:
+        if sepa(inp):
+            traducao = listaTraducao[aux].replace("sepa", "if")
+            for t in tipos:
+                if t in listatipos:
+                    traducao = traducao.replace(f'{t}', f'{dicionario[dicionario.index(t) + 1]}')
+        print(f'Tradução: {traducao}')
+
+    elif 'obaguieesse' in inp:
+        trad = 'printf("'
+        t = 0
+        v = 0
+        val = ', '.join(listavariaveis)
+        if obaguieesse(inp):
+            if '<' in inp and '"' in inp:
+                for x in inp:
+                    if x == 'variável':
+                        trad += '%s '
+                    elif x == 'texto':
+                        trad += f'{listatextos[t]} '
+                        t += 1
+
+                trad += f'", {val});'
+                print(f'Tradução: {trad}')
+
+            elif len(listavariaveis) == 1:
+                print(f'Tradução: printf("%s", {listavariaveis[0]})')
+
+            else:
+                print(f'Tradução: printf("{listatextos[0]}");')
+
     aux += 1
     try:
         lista = listaEntrada[aux][0]
@@ -181,3 +214,4 @@ while aux < len(listaEntrada):
     listatextos = []
     listavariaveis = []
     inp = []
+
