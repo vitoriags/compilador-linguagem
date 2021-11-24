@@ -6,8 +6,10 @@ listasimbolos = gerarLista('simbolos.cha', 'r')
 listatipos = gerarLista('tipos.cha', 'r')
 dicionario = gerarLista('dicionario.cha', 'r')
 
-traducaointeira = open('entrada.txt', 'r')
-traducaointeira = traducaointeira.read()
+traducaointeira = manipularArquivo('entrada.txt', 'r')
+with open("saida.txt", "w") as limpa:
+    limpa.write('')
+
 entrada = traducaointeira.replace(" ", "")
 
 lista = entrada[0]
@@ -93,7 +95,7 @@ while aux < len(listaEntrada):
             flag = True
 
         elif listaEntrada[aux][indice + 1] in listasimbolos:
-            if 'obaguieesse' in reservadas or inp[0] == 'tipo':
+            if 'obaguieesse' in reservadas or 'truta' in tipos:
                 if listaEntrada[aux] == '#' and listaEntrada[aux][indice + 1] == '>':
                     listalexico.append(f'Símbolo [frag = {lista}, tipo = variável]')
                     listavariaveis.append(lista)
@@ -154,17 +156,21 @@ while aux < len(listaEntrada):
                 if t in listatipos:
                     traducao = traducao.replace(f'{t}', f'{dicionario[dicionario.index(t) + 1]}')
             print(f'tradução: {traducao}')
+            with open("saida.txt", "a") as saida:
+                saida.write(f'{traducao}\n')
 
     elif 'vaivenafita' in inp:
-        trad = ''
+        traducao = ''
         if vaivenafita(inp):
             if vaivenafita(inp):
                 for x in inp:
                     if x == 'variável':
-                        trad += f"scanf('%s', &{listavariaveis[0]});"
+                        traducao += f"scanf('%s', &{listavariaveis[0]});"
                     else:
                         pass
-                print(f'Tradução: {trad}')
+                print(f'Tradução: {traducao}')
+                with open("saida.txt", "a") as saida:
+                    saida.write(f'{traducao}\n')
 
             else:
                 print('Error 489')
@@ -176,9 +182,11 @@ while aux < len(listaEntrada):
                 if t in listatipos:
                     traducao = traducao.replace(f'{t}', f'{dicionario[dicionario.index(t) + 1]}')
         print(f'Tradução: {traducao}')
+        with open("saida.txt", "a") as saida:
+            saida.write(f'{traducao}\n')
 
     elif 'obaguieesse' in inp:
-        trad = 'printf("'
+        traducao = 'printf("'
         t = 0
         v = 0
         val = ', '.join(listavariaveis)
@@ -186,19 +194,42 @@ while aux < len(listaEntrada):
             if '<' in inp and '"' in inp:
                 for x in inp:
                     if x == 'variável':
-                        trad += '%s '
+                        traducao += '%s '
                     elif x == 'texto':
-                        trad += f'{listatextos[t]} '
+                        traducao += f'{listatextos[t]} '
                         t += 1
 
-                trad += f'", {val});'
-                print(f'Tradução: {trad}')
+                traducao += f'", {val});'
+                print(f'Tradução: {traducao}')
+                with open("saida.txt", "a") as saida:
+                    saida.write(f'{traducao}\n')
 
             elif len(listavariaveis) == 1:
                 print(f'Tradução: printf("%s", {listavariaveis[0]})')
+                with open("saida.txt", "a") as saida:
+                    saida.write(f'printf("%s", {listavariaveis[0]})\n')
 
             else:
                 print(f'Tradução: printf("{listatextos[0]}");')
+                with open("saida.txt", "a") as saida:
+                    saida.write(f'printf("%s", {listatextos[0]})\n')
+
+    elif 'meteoloco' in inp:
+        if meteoloco(inp):
+            traducao = listaTraducao[aux].replace("meteoloco", "while")
+        print(f'tradução: {traducao}')
+        with open("saida.txt", "a") as saida:
+            saida.write(f'{traducao}\n')
+
+    else:
+        if atribuicao(inp):
+            traducao = listaTraducao[aux]
+            for t in tipos:
+                if t in listatipos:
+                    traducao = traducao.replace(f'{t}', f'{dicionario[dicionario.index(t) + 1]}')
+            print(f'tradução: {traducao}')
+            with open("saida.txt", "a") as saida:
+                saida.write(f'{traducao}\n')
 
     aux += 1
     try:
