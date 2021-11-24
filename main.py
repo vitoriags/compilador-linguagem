@@ -6,6 +6,9 @@ listasimbolos = gerarlista('simbolos.cha', 'r')
 listatipos = gerarlista('tipos.cha', 'r')
 dicionario = gerarlista('dicionario.cha', 'r')
 
+with open("saida.txt", "w") as limpa:
+    limpa.write('')
+
 traducaointeira = open('entrada.txt', 'r')
 traducaointeira = traducaointeira.read()
 entrada = traducaointeira.replace(" ", "")
@@ -153,6 +156,8 @@ while aux < len(listaEntrada):
                 if t in listatipos:
                     traducao = traducao.replace(f'{t}', f'{dicionario[dicionario.index(t) + 1]}')
             print(f'tradução: {traducao}')
+            with open("saida.txt", "a") as saida:
+                saida.write(f'{traducao}\n')
 
     elif 'vaivenafita' in inp:
         trad = ''
@@ -164,6 +169,8 @@ while aux < len(listaEntrada):
                     else:
                         pass
                 print(f'Tradução: {trad}')
+                with open("saida.txt", "a") as saida:
+                    saida.write(f'{traducao}\n')
 
             else:
                 print('Error 489')
@@ -172,6 +179,8 @@ while aux < len(listaEntrada):
         if meteoloco(inp):
             traducao = listaTraducao[aux].replace("meteoloco", "while")
         print(f'tradução: {traducao}')
+        with open("saida.txt", "a") as saida:
+            saida.write(f'{traducao}\n')
 
     else:
         if atribuicao(inp):
@@ -180,6 +189,8 @@ while aux < len(listaEntrada):
                 if t in listatipos:
                     traducao = traducao.replace(f'{t}', f'{dicionario[dicionario.index(t) + 1]}')
             print(f'tradução: {traducao}')
+            with open("saida.txt", "a") as saida:
+                saida.write(f'{traducao}\n')
 
 
     aux += 1
@@ -187,6 +198,8 @@ while aux < len(listaEntrada):
         lista = listaEntrada[aux][0]
     except:
         pass
+
+
 
     listalexico = []
     reservadas = []
